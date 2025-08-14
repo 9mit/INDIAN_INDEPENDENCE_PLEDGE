@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Are We Truly Independent? - A Reflection on Modern India</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles to complement Tailwind CSS */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5;
+        }
+
+        /* Animated Tricolor Gradient for the header */
+        .header-gradient {
+            background: linear-gradient(270deg, #ff9933, #ffffff, #138808, #ffffff, #ff9933);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .main-title {
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Styling for the accordion items */
+        .accordion-item {
+            border-color: #D1D5DB;
+            transition: all 0.4s ease-in-out;
+            opacity: 0; /* Initially hidden for animation */
+            transform: translateY(20px);
+        }
+        
+        .accordion-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .accordion-item:hover {
+            border-color: #000080; /* Ashoka Chakra blue */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+            transform: scale(1.02);
+        }
+
+        .accordion-button {
+            transition: background-color 0.3s ease;
+        }
+        
+        .accordion-button.active {
+             background-color: #eef2ff; /* A soft indigo for active state */
+             color: #000080;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0), padding 0.5s ease;
+            padding: 0 1.5rem;
+        }
+
+        .question-icon {
+            color: #FF9933;
+            flex-shrink: 0;
+            margin-right: 12px;
+        }
+
+        .toggle-icon .plus-icon, .toggle-icon .minus-icon {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .toggle-icon .minus-icon {
+            opacity: 0;
+            transform: rotate(-90deg);
+            position: absolute;
+        }
+        .accordion-button.active .toggle-icon .plus-icon {
+            opacity: 0;
+            transform: rotate(90deg);
+        }
+        .accordion-button.active .toggle-icon .minus-icon {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+        
+        /* Pledge Button Style */
+        #pledge-button {
+            background: linear-gradient(45deg, #FF9933, #138808);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        #pledge-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal-content {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+        .modal-overlay.hidden .modal-content {
+            transform: scale(0.95);
+            opacity: 0;
+        }
+
+        /* Final section styling */
+        .final-section {
+            border-top: 4px solid;
+            border-image-slice: 1;
+            border-image-source: linear-gradient(to right, #FF9933, #FFFFFF, #138808);
+        }
+        
+        .final-title {
+            color: #000080;
+        }
+
+        .unity-icon {
+            animation: float 4s ease-in-out infinite;
+            display: inline-block;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .unity-icon:nth-child(2) { animation-delay: 1s; }
+        .unity-icon:nth-child(3) { animation-delay: 2s; }
+        .unity-icon:nth-child(4) { animation-delay: 3s; }
+
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <header class="header-gradient p-4 shadow-lg sticky top-0 z-10">
+        <div class="container mx-auto text-center">
+            <h1 class="text-3xl md:text-5xl font-bold text-white main-title">Are We Truly Independent?</h1>
+            <p class="text-white text-opacity-90 mt-2 text-sm md:text-base">A modern reflection on freedom and responsibility</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+        <p class="text-center text-gray-600 mb-8 italic max-w-3xl mx-auto">
+            Before someone posts another copied, propaganda-filled reel, let me use my own brain. Sorry, I don’t blindly follow YouTubers. I actually do a little research. Apologies if that offends you, but it’s just a skill I happen to have.
+        </p>
+
+        <div id="accordion-container" class="space-y-4 max-w-4xl mx-auto">
+            <!-- Questions will be dynamically inserted here by JavaScript -->
+        </div>
+
+        <!-- Pledge Section -->
+        <div class="text-center my-12 md:my-16">
+            <button id="pledge-button" class="text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg">
+                Take the Pledge for a Better India
+            </button>
+        </div>
+
+        <section class="final-section mt-12 pt-8 bg-white p-6 rounded-lg shadow-lg max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-center final-title mb-6">But Yes, We Are Free...</h2>
+            
+            <div class="flex justify-center space-x-8 mb-6 text-5xl">
+                <span class="unity-icon" title="Krishna">🕉️</span>
+                <span class="unity-icon" title="Eid">☪️</span>
+                <span class="unity-icon" title="Ganesh">✝️</span>
+                <span class="unity-icon" title="Unity">☸️</span>
+            </div>
+
+            <div class="text-center text-lg space-y-3 text-gray-700">
+                <p>When a Muslim family dresses their child as Krishna,</p>
+                <p>When Hindus celebrate Eid,</p>
+                <p>When Christians join Ganesh Chaturthi,</p>
+                <p>When Sikhs, Jains, and Buddhists share joy across faiths...</p>
+            </div>
+            <p class="text-center text-2xl font-semibold mt-6" style="color: #138808;">That’s not just freedom. <span style="color: #FF9933;">That’s India.</span></p>
+        </section>
+    </main>
+
+    <footer class="text-center p-6 mt-8 bg-gray-800 text-white">
+        <p>Made by Naumit Agarwal</p>
+        <p class="text-sm text-gray-400 mt-1">Designed to provoke thought and inspire change.</p>
+    </footer>
+
+    <!-- Pledge Modal -->
+    <div id="pledge-modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 hidden z-50">
+        <div id="modal-content" class="modal-content bg-white rounded-lg shadow-xl max-w-md w-full relative transform opacity-100 scale-100">
+            <!-- Initial Pledge View -->
+            <div id="pledge-initial-view" class="p-6">
+                <h2 class="text-2xl font-bold text-center" style="color: #000080;">My Pledge for a Truly Independent India</h2>
+                <p class="text-center text-gray-600 my-4">
+                    I pledge to think critically, rise above division, fulfill my civic duties, and place my country above all else. I will be a responsible, informed, and united citizen.
+                </p>
+                <div class="mt-6">
+                    <input type="text" id="pledge-name" placeholder="Enter your name to sign" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <p id="name-error" class="text-red-500 text-sm mt-1 hidden">Please enter your name.</p>
+                </div>
+                <button id="sign-pledge-button" class="w-full mt-4 bg-green-600 text-white font-bold py-2 px-4 rounded-md hover:bg-green-700 transition">Sign the Pledge</button>
+            </div>
+            <!-- Thank You View -->
+            <div id="pledge-thankyou-view" class="p-8 text-center hidden">
+                <h2 class="text-2xl font-bold" style="color: #138808;">Thank You!</h2>
+                <p id="thank-you-message" class="text-gray-700 mt-4 text-lg"></p>
+                <button id="close-modal-final-button" class="mt-8 bg-gray-600 text-white font-bold py-2 px-6 rounded-md hover:bg-gray-700 transition">Close</button>
+            </div>
+            <button id="close-modal-button" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+        </div>
+    </div>
+
+    <script>
+        // Data for the accordion sections with icons
+        const questions = [
+            { q: "Are we free from celebrity worship?", a: "We follow actors more than activists. We know movie dates, not policy changes. Is that freedom or just distraction?", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.196-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.783-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>`},
+            { q: "Are we free from the barriers we build ourselves?", a: "We wage wars over language and deepen divides between North, South, East, and West. Have we forgotten the single identity that is meant to unite us?", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>`},
+            { q: "Are we free from the prison of caste?", a: "We claim to be modern, but still judge a person by the lottery of their birth. We speak of equality, but still whisper about surnames. How can any of us be truly free when some of us are chained to an identity they never chose?", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>`},
+            { q: "Are we free from religious fights?", a: "We talk about unity, but still divide ourselves by faith. Do places of worship bring us together or push us apart?", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" /></svg>`},
+            { q: "Are we free from blindly following political parties?", a: "We don’t support ideas we worship leaders. We defend them no matter what, even when they fail us.", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M15 21v-1a6 6 0 00-5.197-5.977" /></svg>`},
+            { q: "Are we free from ignoring civic duties?", a: "We litter, break rules, spit on food and then blame the government. Freedom without responsibility is just a mess.", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>`},
+            { q: "Are we free to choose development over religion?", a: "We say we want progress, but care more about rituals than roads. India deserves growth but do we deserve India?", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>`},
+            { q: "Are we free from tax evaders who cry about stolen votes?", a: "People who don’t pay taxes complain the loudest. That’s not patriotism, that’s hypocrisy.", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8h6m-5 4h4m5 6H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2z" /></svg>`},
+            { q: "Are we free from land politics in the name of God?", a: "When religion becomes a reason to claim land, are we building a country or breaking it?", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9V3m-9 9h18" /></svg>`},
+            { q: "Are we free from fake concern?", a: "Some troll politicians online but secretly push religious agendas. That’s not activism, it’s acting.", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`},
+            { q: "Are we free from unfair comparisons?", a: "We compare India to other countries without understanding their history or leadership. That’s not helpful.", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>`},
+            { q: "Are we free from selective outrage?", a: "We cry for Palestine but ignore Bengal. We tweet about Gaza but stay silent on Manipur. Real empathy starts at home.", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>`},
+            { q: "Are we free from unhygienic habits?", a: "Vendors spit on fruits. People ignore basic cleanliness. Freedom without discipline is dangerous.", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>`},
+            { q: "Are we free from putting community above country?", a: "If growing your group matters more than growing the nation, then patriotism is lost.", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.653-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.653.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>`},
+            { q: "Are we free from doubting our own army?", a: "We believe foreign lies more than our soldiers. How can we call ourselves free if we don’t trust those who protect us?", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>`},
+            { q: "Are we free from people who don’t pay taxes but want development?", a: "You want change? Start by doing your part. Patriotism means participation.", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg>`},
+            { q: "Are we free to question the government?", a: "Supporting a party is fine. Blindly following it is not. Asking questions is part of democracy.", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`},
+            { q: "Are we free from spreading false news?", a: "YouTubers aren’t experts. Reels aren’t research. Don’t share what you haven’t understood.", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.636 5.636a9 9 0 0112.728 0M18.364 18.364A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>`},
+            { q: "Are we free from people disrespecting majority culture?", a: "Calling traditions “haram” without knowing them only creates hate. Respect goes both ways.", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`}
+        ];
+
+        const accordionContainer = document.getElementById('accordion-container');
+
+        function createAccordionItems() {
+            questions.forEach((item, index) => {
+                const accordionItem = document.createElement('div');
+                accordionItem.className = 'accordion-item bg-white rounded-lg border shadow-sm';
+
+                const button = document.createElement('button');
+                button.className = 'accordion-button w-full flex justify-between items-center text-left p-4 md:p-5 font-semibold text-lg hover:bg-gray-50 rounded-lg focus:outline-none';
+                button.innerHTML = `
+                    <div class="flex items-center">
+                        <span class="question-icon">${item.icon}</span>
+                        <span>${item.q}</span>
+                    </div>
+                    <span class="toggle-icon relative w-6 h-6 flex items-center justify-center">
+                        <svg class="w-6 h-6 text-gray-500 plus-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                        <svg class="w-6 h-6 text-gray-500 minus-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6"></path></svg>
+                    </span>
+                `;
+
+                const content = document.createElement('div');
+                content.className = 'accordion-content';
+                content.innerHTML = `<p class="text-gray-600 pb-5">${item.a}</p>`; // Removed Gemini button and div
+
+                accordionItem.appendChild(button);
+                accordionItem.appendChild(content);
+                accordionContainer.appendChild(accordionItem);
+
+                button.addEventListener('click', () => {
+                    const isActive = button.classList.contains('active');
+                    document.querySelectorAll('.accordion-button').forEach(otherButton => {
+                        if (otherButton.classList.contains('active')) {
+                            otherButton.classList.remove('active');
+                            otherButton.nextElementSibling.style.maxHeight = null;
+                        }
+                    });
+                    if (!isActive) {
+                        button.classList.add('active');
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                });
+            });
+            setupIntersectionObserver();
+        }
+        
+        function setupIntersectionObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.accordion-item').forEach(item => {
+                observer.observe(item);
+            });
+        }
+
+        // --- PLEDGE MODAL LOGIC ---
+        const pledgeButton = document.getElementById('pledge-button');
+        const pledgeModal = document.getElementById('pledge-modal');
+        const closeModalButton = document.getElementById('close-modal-button');
+        const closeModalFinalButton = document.getElementById('close-modal-final-button');
+        const signPledgeButton = document.getElementById('sign-pledge-button');
+        const pledgeNameInput = document.getElementById('pledge-name');
+        const nameError = document.getElementById('name-error');
+        const initialView = document.getElementById('pledge-initial-view');
+        const thankyouView = document.getElementById('pledge-thankyou-view');
+        const thankYouMessage = document.getElementById('thank-you-message');
+        
+        const openModal = () => pledgeModal.classList.remove('hidden');
+        const closeModal = () => {
+            pledgeModal.classList.add('hidden');
+            setTimeout(() => {
+                initialView.classList.remove('hidden');
+                thankyouView.classList.add('hidden');
+                pledgeNameInput.value = '';
+                nameError.classList.add('hidden');
+            }, 300);
+        };
+
+        pledgeButton.addEventListener('click', openModal);
+        closeModalButton.addEventListener('click', closeModal);
+        closeModalFinalButton.addEventListener('click', closeModal);
+        pledgeModal.addEventListener('click', (e) => {
+            if (e.target === pledgeModal) closeModal();
+        });
+
+        signPledgeButton.addEventListener('click', () => {
+            const name = pledgeNameInput.value.trim();
+            if (name === '') {
+                nameError.classList.remove('hidden');
+                pledgeNameInput.focus();
+            } else {
+                nameError.classList.add('hidden');
+                thankYouMessage.innerHTML = `<strong>Thank you, ${name}.</strong><br><br>Your pledge is a promise. Love our nation through your actions, and keep it clean as you would your own home. Jai Hind!`;
+                initialView.classList.add('hidden');
+                thankyouView.classList.remove('hidden');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', createAccordionItems);
+    </script>
+</body>
+</html>
